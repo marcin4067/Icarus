@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <?php session_start(); 
 //include('includes/menu.php');
-$_SESSION['studentid']=$studentid;
+$_SESSION['userid']=$userid;
 ?>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Teacher</title>
+  <title>Admin</title>
   <!--
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">  
   <link rel="stylesheet" href="css/index.css">
@@ -17,7 +17,7 @@ $_SESSION['studentid']=$studentid;
 <body>
 <?php
 // menus();
-//echo $studentid;
+//echo $userid;
 ?>   
  <div class="row">
    <div id="sidebar" class="col m2 blue darken-3">

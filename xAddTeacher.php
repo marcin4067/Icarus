@@ -2,7 +2,7 @@
 <?php session_start(); 
 //include('includes/menu.php');
 include('php/functions.php');
-$_SESSION['studentid']=$studentid;
+$_SESSION['userid']=$userid;
 ?>
 <html>
 <head>
@@ -36,10 +36,14 @@ $_SESSION['studentid']=$studentid;
      				   		  </div>	
     				 		  <div class="col-25">	
     							 <input type="text" placeholder="Last Name*" id="lastName" name="lastName" required size="25" /><span id="lastNameFb"></span>
+    				  		  </div>
+    				  		  <div class="col-25">	
+    							 <input type="text" placeholder="Email*" id="email" name="email" required size="25" /><span id="emailFb"></span>
     				  		  </div>	
     				  		  <div class="col-25">	
     							 <input  hidden  type="text" id="schoolid" name="schoolid" value="<?php echo $schoolid; ?>" />
     				  		  </div>	
+    				  		  
     				   	 <div class="col-25">	
 							 <div id="submitbutton">	
 								<button type="reset">Reset</button><button id="submitb" type="submit">Save</button>

@@ -3,7 +3,7 @@
 //include('includes/menu.php');
 include('php/functions.php');
 //include('php/functions2.php');
-$_SESSION['studentid']=$studentid;
+$_SESSION['userid']=$userid;
 ?>
 <html>
 <head>
@@ -28,30 +28,57 @@ $_SESSION['studentid']=$studentid;
  <div class="row">
    
    <div id="mainContent" class="col m8 offset-m3">
-    <?php    
-    
-    
+    <?php     
     $firstname=$_POST['firstName'];
     $lastname=$_POST['lastName']; 
     $schoolid=$_POST['schoolid'];
+    $email=$_POST['email'];
+    $username = $firstname;
     //echo $firstname;
-   // echo $lastname;
-   // echo $schoolid;
-    $db = createConnection();   
-    $insertquery="insert into teacher (firstName, lastName, schoolid) values (?,?,?);";
-    $inst=$db->prepare($insertquery);
-    $inst->bind_param("ssi",  $firstname, $lastname, $schoolid);
-    $inst->execute();
-    // check user inserted, if so create login form
-    if($inst->affected_rows==1)
-    {	
-        echo "Teacher added";
-    }
-    else 
+    //echo $lastname;
+    //echo $schoolid;    
+    $sessionid=session_id();
+    $userpass=$_POST['email'];   
+    $salt=getSalt(16);
+    $cryptpass=makeHash($userpass,$salt,50);
+    $utype=2;
+    
+    $xp = 1;
+    
+    $db = createConnection();     
+    $sql ="select userid from user where firstname = ? and lastname= ? and schoolid = ? and utype = 2;";
+    $stmt=$db->prepare($sql);
+    $stmt->bind_param("ssi", $firstname, $lastname, $schoolid);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($userid);
+    if ($stmt->num_rows != 0)
     {
-        echo "is problem";
+        echo "That Teacher exist";
+        
+        session_destroy();
     }
-
+    else
+    {        
+       $insertquery="INSERT INTO `user`(`firstname`,`lastname`,`username`,`userpass`,`salt`,`email`,`sessionid`,`utype`,`xp`,`schoolid`) VALUES (?,?,?,?,?,?,?,?,?,?);";
+       $inst=$db->prepare($insertquery);
+       //echo $username.' fn:'.$firstname. ' ln:'.$lastname.' s:'.$salt.' c:'.$cryptpass.' se:'.$sessionid.' sch:'.$schoolid.' e:'.$email.' ut:'.$utype.' xp:'.$xp;
+       $inst->bind_param("sssssssiii",  $firstname, $lastname, $username, $cryptpass, $salt, $email, $sessionid, $utype, $xp, $schoolid);
+       $inst->execute();
+        // check user inserted, if so create login form
+         if($inst->affected_rows==1)
+         {	
+           echo "Teacher added";
+         }
+         else 
+         {
+            echo "is problem";
+         }
+         $inst->close();
+         session_destroy();
+    }
+    $stmt->close();
+    $db->close();
     ?>
     
    </div>

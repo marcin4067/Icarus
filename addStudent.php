@@ -27,14 +27,15 @@ include('php/functions.php');
    
    <div id="mainContent" class="col m8 offset-m3">
     <?php 
-   	$currentuser['studentidPK'] = 3;
+    $teacherid=$_SESSION['userid'];
+   // echo $userid;
    	$db=createConnection();
-   	$sql = "select moduleidPK,modulename,level, teacheridPKFK from class join module on class.moduleidPKFK = module.moduleidPK where teacheridPKFK=?";
+   	$sql = "select classid,classname from class where teacherid=?;";
    	$stmt = $db->prepare($sql);
-   	$stmt->bind_param("i",$currentuser['studentidPK']);
+   	$stmt->bind_param("i",$teacherid);
    	$stmt->execute();
    	$stmt->store_result();
-   	$stmt->bind_result($moduleidPK,$modulename,$level, $teacheridPKFK);
+   	$stmt->bind_result($classid,$classname);
    		if($stmt->num_rows>0)
    		{
    	    ?>
@@ -44,7 +45,7 @@ include('php/functions.php');
    		    <?php 
    	           while($row=$stmt->fetch()) 
         	   	{
-        	   	    echo "<option value='$moduleidPK'>$level $modulename  </option>";
+        	   	    echo "<option value='$classid'> $classname  </option>";
    	        	}
        		?>
    			</select>
@@ -55,9 +56,10 @@ include('php/functions.php');
 	}
 	else 
 	{
-		echo "<p>No users found!</p>";
+		echo "<p>No class found!</p>";
 	}
-
+	$stmt->close();
+	$db->close();
 	?>
      
    </div>

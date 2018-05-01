@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php session_start(); 
 //include('includes/menu.php');
-$_SESSION['studentid']=$studentid;
+$_SESSION['userid']=$userid;
 ?>
 <html>
 <head>
