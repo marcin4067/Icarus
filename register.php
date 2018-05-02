@@ -6,6 +6,9 @@
 
 </head>
 <body>
+<?php
+include 'includes/nav.php';
+?>  
     <form action="registerResult.php" id="registerForm" method="post">
       <fieldset>
         <h1>Register</h1>

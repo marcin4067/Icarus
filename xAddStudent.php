@@ -17,7 +17,9 @@ $_SESSION['userid']=$userid;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
 <body>
-
+<?php
+include 'includes/nav.php';
+?>  
  <div class="row">
    <div id="sidebar" class="col m2 blue darken-3">
     

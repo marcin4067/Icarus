@@ -17,9 +17,7 @@ $_SESSION['userid']=$userid;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
 <body>
-<?php
-//menus();
-?>   
+<?php include 'includes/nav.php';?>
  <div class="row">
    <div id="sidebar" class="col m2 blue darken-3">
     
@@ -37,7 +35,7 @@ $_SESSION['userid']=$userid;
     //echo $firstname;
     //echo $lastname;
     //echo $schoolid;    
-    $sessionid=session_id();
+    $sessionid="a";
     $userpass=$_POST['email'];   
     $salt=getSalt(16);
     $cryptpass=makeHash($userpass,$salt,50);
@@ -56,7 +54,7 @@ $_SESSION['userid']=$userid;
     {
         echo "That Teacher exist";
         
-        session_destroy();
+        
     }
     else
     {        
@@ -68,14 +66,15 @@ $_SESSION['userid']=$userid;
         // check user inserted, if so create login form
          if($inst->affected_rows==1)
          {	
-           echo "Teacher added";
+           echo "<p>Teacher added</p>";
+           echo "<a href='admin.php'>Click here to go to Admin page</a>";
          }
          else 
          {
             echo "is problem";
          }
          $inst->close();
-         session_destroy();
+         
     }
     $stmt->close();
     $db->close();

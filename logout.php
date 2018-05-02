@@ -6,10 +6,10 @@ $sessionid=session_id();
 if(!is_null($studentid)) 
 {
 	
-	$clearquery="update student set sessionid='a' where studentid=? and sessionid=?";
+	$clearquery="update user set sessionid='' where userid=? and userid=?;";
 	$db=createConnection();
 	$doclear=$db->prepare($clearquery);
-	$doclear->bind_param("is",$studentid,$sessionid);
+	$doclear->bind_param("ii",$userid,$userid);
 	$doclear->execute();
 	$doclear->close();
 	$db->close();

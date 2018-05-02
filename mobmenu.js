@@ -1,3 +1,4 @@
+//script came from http://materializecss.com/side-nav.html
 $('.button-collapse').sideNav({
       menuWidth: 300, // Default is 300
       edge: 'left', // Choose the horizontal origin

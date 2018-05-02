@@ -23,8 +23,8 @@ session_start();
 </head>
 <body>
 <?php
-//menus();
-?>   
+include 'includes/nav.php';
+?>  
  <div class="row">
    <div id="sidebar" class="col m2 blue darken-3">
      

@@ -6,6 +6,7 @@
 <body>
   <p>Registration page</p>
   <?php
+    
     include("php/functions.php");    
     $email=$_POST['email'];
     $username=$_POST['username'];
@@ -22,7 +23,7 @@
     $userexists=false;
     //start a session
     session_start();
-    $sessionid=session_id();
+    $sessionid="a";
     // connect to database
     $db = createConnection();
     // check form details again in case javascript disabled and
@@ -36,7 +37,7 @@
     $stmt->bind_result($userresult);
     while($row=$stmt->fetch()) 
     {
-        echo " email : $email user result: $userresult  ";
+       // echo " email : $email user result: $userresult  ";
     	if($userresult==$email) {$userexists=true;}
     }
     $stmt->close();
@@ -45,7 +46,7 @@
     {
       $insertquery="INSERT INTO `user`(`firstname`,`lastname`,`username`,`userpass`,`salt`,`email`,`sessionid`,`utype`,`xp`,`schoolid`) VALUES (?,?,?,?,?,?,?,?,?,?);";
     	$inst=$db->prepare($insertquery);
-      echo $username.$userlevel.$firstname.$lastname.'s:'.$salt.'c:'.$cryptpass.'se:'.$sessionid.'sch:'.$school;
+      //echo $username.$userlevel.$firstname.$lastname.'s:'.$salt.'c:'.$cryptpass.'se:'.$sessionid.'sch:'.$school;
       $inst->bind_param("sssssssiii", $firstname, $lastname, $username, $cryptpass, $salt, $email, $sessionid, $utype, $xp, $schoolid);
     	$inst->execute();
       // check user inserted, if so create login form

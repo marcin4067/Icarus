@@ -14,7 +14,7 @@ if(isset($_POST['email']) && isset($_POST['userpass']))
 	$email=$_POST['email'];
 	$userpass=$_POST['userpass'];
 	//Create query, note that parameters being passed in are represented by question marks
-	$loginsql="select userid, userpass, salt, firstname, lastname, utype from user where email=?;";
+	$loginsql="select userid, userpass, salt, firstname, lastname, sessionid,utype from user where email=?;";
 	$lgnstmt = $db->prepare($loginsql);
 	//Bound parameters are defined by type, s = string, i = integer, d = double and b = blob
 	$lgnstmt->bind_param("s",$email);
@@ -23,18 +23,26 @@ if(isset($_POST['email']) && isset($_POST['userpass']))
 	//Store Query Result
 	$lgnstmt->store_result();
 	//Bind returned row parameters in same order as they appear in query
-	$lgnstmt->bind_result($userid,$hash,$salt,$firstname,$lastname,$usertype);
+	$lgnstmt->bind_result($userid,$hash,$salt,$firstname,$lastname,$sessionid,$usertype);
 	//Valid login only if exactly one row returned, otherwise something iffy is going on
 	
 	if($lgnstmt->num_rows==1) 
-	{
-	   
+	{	   
 		//Fetch the next (only) row from the returned results
 		$lgnstmt->fetch();
-		echo "  sid $userid h $hash s $salt f $firstname l $lastname u $usertype";
-		$cyphertext=makeHash($userpass,$salt,50);
-		if($cyphertext==$hash) 
-		{
+		//echo "  sid $userid h $hash s $salt f $firstname l $lastname u $usertype sid $sessionid ";
+		
+		  $cyphertext=makeHash($userpass,$salt,50);
+		  if($cyphertext==$hash) 
+		  {
+		      if($sessionid == "a")
+		      {
+		          $info = $email;
+		          header("location: firstTime.php?dID=$info");
+		          exit();
+		      }
+		      else
+		      {
 			//Update user's record with session data
 					$loggedIn = true;
 					$_SESSION['loggedIn']=$loggedIn;
@@ -68,18 +76,20 @@ if(isset($_POST['email']) && isset($_POST['userpass']))
 					{
 						header("location: logout.php");
 						exit();
-					}
-		} 
-		else 
-		{
-			echo "<p>Login is not correct, please return to login screen and check your details</p>";
-		}
-	}
+					}	  
+		      
+		      }
+	       }
+	       else
+	       {
+	             echo "<p>Login is not correct, please return to login screen and check your details</p>";
+	       }		
 	$lgnstmt->close();
 	$db->close();
 } 
 else 
 {
 	echo "<p>Login details not submitted, please return to login screen and check your details</p>";
+}
 }
 ?>

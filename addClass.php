@@ -1,5 +1,5 @@
 <?php session_start(); 
-include("php/functions.php");    
+include("php/functions.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,6 +13,9 @@ include("php/functions.php");
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
 <body>
+<?php
+include 'includes/nav.php';
+?>  
    <div class="row">
      <div id="sidebar" class="col m2 blue darken-3">
        <h5 class="white-text">Classes</h5>

@@ -7,17 +7,16 @@ $_SESSION['userid']=$userid;
 <head>
   <meta charset="utf-8">
   <title>Teacher</title>
-  <!--
+ 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">  
   <link rel="stylesheet" href="css/index.css">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  -->
+ 
 </head>
 <body>
 <?php
-// menus();
-//echo $studentid;
+include 'includes/nav.php';
 ?>   
  <div class="row">
    <div id="sidebar" class="col m2 blue darken-3">

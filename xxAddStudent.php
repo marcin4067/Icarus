@@ -17,7 +17,7 @@ $_SESSION['userid']=$userid;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
 <body>
-
+<?php include 'includes/nav.php';?>
  <div class="row">
    <div id="sidebar" class="col m2 blue darken-3">
     
@@ -37,9 +37,9 @@ $_SESSION['userid']=$userid;
     $utype = 1;
     $salt=getSalt(16);
     $cryptpass=makeHash($userpass,$salt,50);
-    
+    $sessionid = "a";
     $xp = 1;
-    //$schoolid = 1;
+   
     
     $db = createConnection();
     
@@ -61,7 +61,8 @@ $_SESSION['userid']=$userid;
             // check user inserted, if so create login form
             if($inst->affected_rows==1)
                 {	
-                    echo "student added";
+                    echo "<p>student added</p>";
+                    echo "<a href='teacher.php'>Click here to go to Teacher page</a>";
                 }
                 else 
                 {
@@ -75,6 +76,7 @@ $_SESSION['userid']=$userid;
         }
         $stmt2->close();
         $db->close();
+        
     ?>
     
    </div>
