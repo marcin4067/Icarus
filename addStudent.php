@@ -2,6 +2,8 @@
 <?php session_start(); 
 //include('includes/menu.php');
 include('php/functions.php');
+include 'includes/nav.php';
+$teacherid=$_SESSION['userid'];
 ?>
 <html>
 <head>
@@ -15,9 +17,7 @@ include('php/functions.php');
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
 <body>
-<?php
-include 'includes/nav.php';
-?>  
+
  <div class="row">
    <div id="sidebar" class="col m2 blue darken-3">
     
@@ -27,8 +27,8 @@ include 'includes/nav.php';
    
    <div id="mainContent" class="col m8 offset-m3">
     <?php 
-    $teacherid=$_SESSION['userid'];
-   // echo $userid;
+    
+    //echo $teacherid.' '.$userid;
    	$db=createConnection();
    	$sql = "select classid,classname from class where teacherid=?;";
    	$stmt = $db->prepare($sql);
@@ -57,6 +57,8 @@ include 'includes/nav.php';
 	else 
 	{
 		echo "<p>No class found!</p>";
+		echo "<a href='teacher.php'>Click here to go to Teacher page</a>";
+							
 	}
 	$stmt->close();
 	$db->close();

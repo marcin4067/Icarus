@@ -49,6 +49,7 @@ include 'includes/nav.php';
 	   else 
 	   {
 	       echo "<p>Schools no found!</p>";
+		   
 	   }
 	   $stmt->close();
 	   $db->close();
