@@ -18,7 +18,7 @@ $_SESSION['userid']=$userid;
 <body>
 <?php
 include 'includes/nav.php';
-echo $teacherid.' '.$userid;
+//echo $teacherid.' '.$userid;
 ?>   
  <div class="row">
    <div id="sidebar" class="col m2 blue darken-3">

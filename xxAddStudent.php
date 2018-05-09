@@ -28,7 +28,7 @@ $teacherid=$_SESSION['userid'];
    
    <div id="mainContent" class="col m8 offset-m3">
     <?php    
-    echo $teacherid.' '.$userid;
+    //echo $teacherid.' '.$userid;
     
     $firstname= generateRandomString();
     $lastname=generateRandomString();
@@ -41,7 +41,7 @@ $teacherid=$_SESSION['userid'];
     $cryptpass=makeHash($userpass,$salt,50);
     $sessionid = "a";
     $xp = 1;
-   echo $email.'  '.$module.' '.$teacherid;
+  // echo $email.'  '.$module.' '.$teacherid;
     
     $db = createConnection();
     $sqltest ="select userid from user where email=?;";
